@@ -95,3 +95,16 @@ sedangkan `Mutex<>` hanya memungkinkan satu thread untuk melakukan read maupun w
 Dibandingkan Java, Rust tidak mengizinkan dilakukannya hal tersebut untuk mencegah isu pada multithreading. Secara default, static variable di Rust dibuat immutable agar aman dilakukan concurrency. `lazy_static` disini berfungsi untuk menginisilisasi variabel ketika pertama kali digunakan dan membuat variabel tersebut bersifat Singleton pada kasus ini. Lalu, agar dapat bersifat mutable, digunakan `RwLock<>` untuk mengizinkan read dan write secara bersamaan pada `Vec<Notification>`.
 
 #### Reflection Subscriber-2
+> Have you explored things outside of the steps in the tutorial, for example: src/lib.rs? If not, explain why you did not do so. If yes, explain things that you have learned from those other parts of code
+
+Ya, sekilas. Yang saya pahami adalah `src/lib.rs` berfungsi sebagai modul utama dari proyek yang dibuat. Kode ini berisi import crate dan modul, struktur `AppConfig`, dan error handling.
+
+> Since you have completed the tutorial by now and have tried to test your notification system by spawning multiple instances of Receiver, explain how Observer pattern eases you to plug in more subscribers. How about spawning more than one instance of Main app, will it still be easy enough to add to the system?
+
+Ya, tetap mudah ditambahkan ke sistem karena digunakannya design pattern yang memudahkan kasus tersebut. Setiap instance Main App bertanggung jawab untuk memberikan dan mengelola notifikasi kepada observer/subscriber yang terdaftar. Jika diperlukan notifikasi kepada semua observer dari suatu perubahan instance, kita hanya butuh mekanisme komunikasi antar instance.
+Jika perlu membuat lebih dari satu instance Main App, dapat dilakukan dengan mendaftarkan observer untuk setiap instance aplikasi yang berbeda melalui pengiriman permintaan HTTP ke API yang sesuai
+
+> Have you tried to make your own Tests, or enhance documentation on your Postman collection? If you have tried those features, tell us whether it is useful for your work (it can be your tutorial work or your Group Project).
+
+Tentunya fitur tersebut berguna. Untuk membuat test, kita dapat memastikan bahwa kode yang dibuat sudah sesuai ekspektasi. Untuk dokumentasi pada Postman Collection, memudahkan kita untuk menggunakan API dan verifikasi respons sesuai dengan data pada aplikasi. Menurut saya, dokumentasi yang baik adalah dokumentasi yang menjelaskan endpoint, parameter, respons, dan error handling. Dokumentasi ini dapat kita lakukan di tab overview. 
+
